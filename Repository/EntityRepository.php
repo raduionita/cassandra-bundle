@@ -1,5 +1,5 @@
 <?php
-namespace CassandraBundle\Repository;
+namespace Raducorp\CassandraBundle\Repository;
 
 use Cassandra\Session;
 

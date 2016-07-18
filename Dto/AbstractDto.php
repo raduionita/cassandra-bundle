@@ -1,10 +1,10 @@
 <?php
 
-namespace CassandraBundle\Dto;
+namespace Raducorp\CassandraBundle\Dto;
 
-use CassandraBundle\Exception\BadTypeDtoException;
-use CassandraBundle\Exception\BadValueDtoException;
-use CassandraBundle\Exception\NotFoundDtoException;
+use Raducorp\CassandraBundle\Exception\BadTypeDtoException;
+use Raducorp\CassandraBundle\Exception\BadValueDtoException;
+use Raducorp\CassandraBundle\Exception\NotFoundDtoException;
 
 abstract class AbstractDto implements DtoInterface
 {
@@ -35,7 +35,7 @@ abstract class AbstractDto implements DtoInterface
      * @param array $data
      * @param bool  $validate
      */
-    public function __construct(array $data = [], bool $validate = false)
+    public function __construct(array $data = [], $validate = false)
     {
         static::$clone = clone $this;
         
@@ -53,7 +53,7 @@ abstract class AbstractDto implements DtoInterface
      * @param  bool $validate
      * @return AbstractDto
      */
-    public static function create(array $data = [], bool $validate = false) : AbstractDto
+    public static function create(array $data = [], $validate = false)
     {
         if (!(static::$clone instanceof static)) {
             static::$clone = new static($data, $validate);
@@ -277,7 +277,7 @@ abstract class AbstractDto implements DtoInterface
      * @param string $key
      * @param null $value
      */
-    public function addData(string $key, $value = null)
+    public function addData($key, $value = null)
     {
         $this->data[$key] = $value;
         $this->fields[] = $key;
@@ -287,7 +287,7 @@ abstract class AbstractDto implements DtoInterface
     /**
      * @param string $key
      */
-    public function addRequired(string $key) 
+    public function addRequired($key) 
     {
         $this->required[] = $key;
         $this->validated = false;
@@ -296,7 +296,7 @@ abstract class AbstractDto implements DtoInterface
     /**
      * @param string $key
      */
-    public function addOptional(string $key) 
+    public function addOptional($key) 
     {
         $this->optional[] = $key;
         $this->validated = false;
@@ -306,7 +306,7 @@ abstract class AbstractDto implements DtoInterface
      * @param string $key
      * @param $value
      */
-    public function addDefault(string $key, $value)
+    public function addDefault($key, $value)
     {
         $this->defaults[$key] = $value;
         $this->validated = false;
@@ -316,7 +316,7 @@ abstract class AbstractDto implements DtoInterface
      * @param string $key
      * @param $condition
      */
-    public function addType(string $key, $condition) 
+    public function addType($key, $condition) 
     {
         $this->customTypes[$key] = $condition;
     }
@@ -327,7 +327,7 @@ abstract class AbstractDto implements DtoInterface
      * @return mixed|null
      * @throws \Exception
      */
-    public function __call(string $name, $params = null)
+    public function __call($name, $params = null)
     {
         $field = lcfirst(substr($name, 3));
         if (!in_array($field, $this->data)) {
@@ -341,7 +341,7 @@ abstract class AbstractDto implements DtoInterface
      * @param mixed|null $default
      * @return mixed|null
      */
-    public function get(string $key, $default = null)
+    public function get($key, $default = null)
     {
         return isset($this->data[$key]) ? $this->data[$key] : $default;
     }
@@ -350,7 +350,7 @@ abstract class AbstractDto implements DtoInterface
      * @param  string $key
      * @return bool
      */
-    public function has(string $key) : bool
+    public function has($key)
     {
         return isset($this->data[$key]);
     }
@@ -358,7 +358,7 @@ abstract class AbstractDto implements DtoInterface
     /**
      * @return array
      */
-    public function toArray() : array
+    public function toArray()
     {
         return $this->data;
     }
@@ -366,7 +366,7 @@ abstract class AbstractDto implements DtoInterface
     /**
      * @return mixed|object
      */
-    public function toObject() : object
+    public function toObject() 
     {
         return json_decode(json_encode($this->data), false); // for reccursion
     }

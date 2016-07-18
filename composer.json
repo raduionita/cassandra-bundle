@@ -1,0 +1,35 @@
+{
+    "name" : "raducorp/cassandrabundle",
+    "description" : "Cassandra bundle - Doctrine-style entity manager",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Radu Ionita",
+        "email" : "ionita.radu.ionut@gmail.com"
+    }],
+    "keywords" : [
+        "cassandra"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+        "datastax/php-driver": "dev-master"
+    },
+    "require-dev" : {
+        "phpunit/phpunit": "dev-master"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Raducorp\\CassandraBundle" : ""
+        }
+    },
+    "target-dir" : "Raducorp/CassandraBundle",
+    "repositories" : [{
+    }],
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "0.0.1-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

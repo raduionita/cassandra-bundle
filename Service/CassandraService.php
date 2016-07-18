@@ -1,6 +1,6 @@
 <?php
 
-namespace CassandraBundle\Service;
+namespace Raducorp\CassandraBundle\Service;
 
 use \Cassandra\Exception\ConfigurationException;
 use CassandraBundle\Repository\EntityRepository;
@@ -38,12 +38,14 @@ class CassandraService
     {
         if (!isset($this->sessions[$keyspace])) {
             // create session
-            $session = $this->cluster->connect($this->keyspaces[$keyspace]);
-            $this->sessions[$keyspace] = $session;
-            return $session;
+            if (isset($this->keyspaces[$keyspace])) {
+                $session = $this->cluster->connect($this->keyspaces[$keyspace]);
+                $this->sessions[$keyspace] = $session;
+                return $session;
+            }
         }
 
-        throw new ConfigurationException("Session could not be created!");
+        throw new ConfigurationException("Session could not be created or keyspace({$keyspace}) not found!");
     }
 
     /**
