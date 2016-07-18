@@ -1,0 +1,4 @@
+services:
+#    raducorp_cassandra.example:
+#        class: Raducorp\CassandraBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
